@@ -76,5 +76,28 @@ const f2= z=> z*z
 // finalFn();
 
 
+//策略模式,主要减少if else的使用
+const strategy={
+    'S':(salary)=>{
+        return salary*4
+    },
+    'A':(salary)=>{
+        return salary*3
+    },
+    'B':(salary)=>{
+        return salary*3
+    },
+    'C':(salary)=>{
+        return salary*3
+    }
+}
 
+const calculateBonus =(level,salary)=>{
+    return strategy[level](salary);
+}
+
+console.log(calculateBonus('C',100));
+
+
+//责任链模式
 
