@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常规操作</title>
+</head>
+<body>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.min.js"></script>
+<script>
+    //鉴权
+    (async () => {
+        //axios代理，拉取同源服务器进行请求
+        // axios.defaults.baseURL = 'http://localhost:4000';
+
+        //携带token
+        // axios.get("/api/users", {headers:{'ctoken':'jilei'}})
+
+        //使用cookie ,开启对应的模式，允许这种写法
+        axios.defaults.withCredentials = true
+
+        const res = await axios.get("/api/users",{headers:{'ctoken':'jilei'}})
+        console.log('data',res.data)
+        document.writeln(`Response : ${JSON.stringify(res.data)}`)
+    })()
+</script>
+</body>
+</html>
