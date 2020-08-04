@@ -1,0 +1,26 @@
+## egg.js 企业级node框架  三层结构
+
+### 三层架构
+>eg: modifyPsw __> 判断用户是否过期__>用户表模型
+
+### 基于约定的路由  约定优于配置  通过配置controler和router  自动生成映射关系
+
+
+### egg引入外部工具,基于插件的形式
+> 需要在config/plugin 中引入对应的插件
+> 在config/config.default中书写对应的配置
+
+### next.js与egg.js
+> next.js比较好用 egg更是一个的底层
+
+
+### 自定义三层结构
+> 定义路由规范
++ 所有路路由，都要放在routes⽂文件夹中
++ 若导出路路由对象，使⽤`用动词+空格+路径`作为key，值是操作方法
++ 若导出函数，则函数返回第⼆条约定格式的对象
+
+sudo scp -r 
+root@192.168.1.214:/var/www/html/chronic-disease-V2-src 
+/home/hxw/文档/214-project/20200804/
+
