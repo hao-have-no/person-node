@@ -1,11 +1,15 @@
 const Koa = require('koa');
-const {initRouter,initController} = require('./kkb-loader');
+const {initRouter,initController,initService} = require('./kkb-loader');
 
 
 class kkb {
     constructor(conf){
         this.$app = new Koa(conf);
-        this.$ctrl = initController();//先初始化控制器器，路路由对它有依赖
+        this.$service = initService(); //初始化service,业务层
+        //service 适配
+        //controller+service的用法，通过柯里化提升
+        this.$ctrl = initController(this);//先初始化控制器器，路由对它有依赖
+        //
         this.$router = initRouter(this); //将kkb实例传入
         this.$app.use(this.$router.routes());
     }

@@ -41,7 +41,13 @@ function initRouter(app){
 
             // 执⾏行行router.method(path, handler)注册路路由
             // get('/user',async()=>{}) 路由处理
-            router[method](prefix+path,routers[key])
+
+            //制定service自动加载时，出现router+service的组合，需要进一步添加中间件处理
+
+            router[method](prefix+path,async ctx=>{
+                app.ctx= ctx; //挂在到app上
+                await routers[key](app); //路由器接受的是app   因为后续的操作  会相互用到controller，service
+            })
         })
     })
     return router;
@@ -50,14 +56,22 @@ function initRouter(app){
 
 
 //对象 --->  对象工厂
-
-function initController(){
+//controller+service  需要引入app  进行柯里化提升
+function initController(app){
     const controllers = {};
     load('controller',(filename,controller)=>{
-        controllers[filename] = controller;
+        controllers[filename] = controller(app);
     })
     return controllers;
 }
 
+function initService(){
+const services = {};
+load('service',(filename,service)=>{
+    //添加服务
+    services[filename] = service;
+});
+return services;
+}
 
-module.exports = {initRouter,initController}
+module.exports = {initRouter,initController,initService}
