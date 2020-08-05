@@ -4,7 +4,9 @@ module.exports = app=> ({
         //controller+service的用法
         //按照用法 app.$service 但是没有app
         //柯里化变换---> 导入app
-        const name = await app.$service.user.getName();
+        // const name = await app.$service.user.getName();
+
+        const name = JSON.stringify(await app.$model.user.findAll());
         app.ctx.body = `ctrl user ${name}`;
 
     },

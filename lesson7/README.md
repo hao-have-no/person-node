@@ -19,8 +19,8 @@
 + 所有路路由，都要放在routes⽂文件夹中
 + 若导出路路由对象，使⽤`用动词+空格+路径`作为key，值是操作方法
 + 若导出函数，则函数返回第⼆条约定格式的对象
++ 注意函数的柯里化和中间件的使用
 
-sudo scp -r 
-root@192.168.1.214:/var/www/html/chronic-disease-V2-src 
-/home/hxw/文档/214-project/20200804/
 
+#### 定时任务
++ crontab  用crontab来启动定时  一种linux的编译语言

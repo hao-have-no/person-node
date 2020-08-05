@@ -15,6 +15,8 @@ function load(dir,cb){
         //导入文件
         const file = require(url+'/'+filename)
         //处理文件
+
+        ///model/user.js  filename:user file:user.js文件内容
         cb(filename,file);
     })
 }
@@ -28,7 +30,7 @@ function initRouter(app){
     const router = new Router();
     load('routes',(filename,routers)=>{
         //路由前缀规则
-        const prefix = filename === 'index'?'':`/${filename}`
+        const prefix = filename === 'index'?'':`/${filename}`;
 
         //判断是否是函数
         // console.log('routers',routers);
@@ -44,12 +46,12 @@ function initRouter(app){
 
             //制定service自动加载时，出现router+service的组合，需要进一步添加中间件处理
 
-            router[method](prefix+path,async ctx=>{
+            router[method](prefix+path, async ctx=>{
                 app.ctx= ctx; //挂在到app上
                 await routers[key](app); //路由器接受的是app   因为后续的操作  会相互用到controller，service
             })
         })
-    })
+    });
     return router;
 }
 
@@ -65,13 +67,53 @@ function initController(app){
     return controllers;
 }
 
-function initService(){
+//加载service
+function initService(app){
 const services = {};
 load('service',(filename,service)=>{
     //添加服务
-    services[filename] = service;
+    services[filename] = service(app);
 });
 return services;
 }
 
-module.exports = {initRouter,initController,initService}
+//加载数据
+const Sequelize = require('sequelize')
+
+//加载数据库配置文件和对应的数据库模型
+function loadConfig(app){
+    load('config',(filename,conf)=>{
+        if (conf.db){
+            console.log('loader db');
+
+            //实例化数据库
+            app.$db = new Sequelize(conf.db);
+
+            app.$model = {};
+            //加载数据库模型
+            load('model',(filename,{scheme,options})=>{
+                app.$model[filename] = app.$db.define(filename,scheme,options)
+            });
+
+            //同步数据库
+            app.$db.sync();
+        }
+
+        if (conf.middleware){
+            conf.middleware.forEach(mid=>{
+                const midPath = path.resolve(__dirname,"middleware",mid);
+                app.$app.use(require(midPath));
+            })
+        }
+    })
+}
+
+const schedule = require('node-schedule')
+//增加定时任务
+function initSchedule() {
+    load('schedule', (filename, scheduleConfig) => {
+        schedule.scheduleJob(scheduleConfig.interval, scheduleConfig.handler)
+    })
+}
+
+module.exports = {initRouter,initController,initService,loadConfig,initSchedule}
