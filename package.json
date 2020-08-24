@@ -25,12 +25,15 @@
   "dependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^4.2.1",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "less-loader": "^6.2.0",
     "mini-css-extract-plugin": "^0.10.0",
     "npx": "^10.2.2",
     "path": "^0.12.7",
     "require": "^2.4.20",
     "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
     "webpack-html-plugin": "^0.1.1"
   }
 }

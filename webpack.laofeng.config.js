@@ -16,9 +16,23 @@ module.exports = {
     },
 
     mode:'development',
-
+    resolveLoader: {
+        modules: ["./node_modules","./myLoaders"] //指定寻找ｌｏａｄｅｒ的位置
+    },
     module:{
         rules: [
+            {
+              test:/\.(png|gif|gpe?g)/,
+                use:{
+                    loader: "url-loader",
+                    options: {
+                        name:'[name].[ext]',
+                        //打包后的存放位置
+                        outputPath: "assets/images/",
+                        limit:'3*1024' //限制图片大小，小于指定大小编码为ｂａｓｅ６４
+                    }
+                }
+            },
             {
                 //loader是有执行顺序的，自后往前，从右到左，从下到上
                 test: /\.css$/,
@@ -26,8 +40,20 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: ["style-loader", "css-loader", "less-loader"],
+                use: ["styleLoader", "cssLoader", "lessLoader"],
             },
+            {
+                test: /\.js$/,
+                use:[
+                    "replaceLoader",
+                    {
+                        loader: "replaceLoaderAsync",
+                        options: {
+                            name:'haogege'
+                        }
+                    }
+                ]
+            }
         ]
     },
 
@@ -38,7 +64,7 @@ module.exports = {
         }),
         new CleanWebpackPlugin(), //打包文件清理多余的垃圾文件
         new miniCssExtractPlugin({
-            filename: "css/index.css",
+            filename: "index.css",
         }),
     ]
 };
