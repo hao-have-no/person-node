@@ -21,4 +21,4 @@
       hotOnly:true //不会刷新浏览器
     },
 
-### 
+### Hot Module Replacement (HMR:热模块替换)
