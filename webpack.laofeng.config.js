@@ -3,6 +3,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin') //模版生成插件
 const {CleanWebpackPlugin} = require('clean-webpack-plugin') //文件清除插件
 const miniCssExtractPlugin = require("mini-css-extract-plugin");　//将样式表抽离为单独的文件引用，而不是装载到style标签上
+const webpack = require("webpack");
 
 module.exports = {
     //　entry 入口文件 enter三种类型
@@ -11,7 +12,7 @@ module.exports = {
     // output
     output: {
         //指定输出资源的存放目录,必须是绝对路径
-        path:path.resolve(__dirname,'./laofeng'),
+        path:path.resolve(__dirname,'./dist'),
         filename:"main.js"
     },
 
@@ -36,35 +37,43 @@ module.exports = {
             {
                 //loader是有执行顺序的，自后往前，从右到左，从下到上
                 test: /\.css$/,
-                use: [miniCssExtractPlugin.loader, "css-loader"],
+                // use: [miniCssExtractPlugin.loader,"css-loader"],
+                use: ["style-loader","postcss-loader","css-loader"],
             },
             {
                 test: /\.less$/,
-                use: ["styleLoader", "cssLoader", "lessLoader"],
+                use: ["style-loader", "css-loader","postcss-loader", "less-loader"],
             },
-            {
-                test: /\.js$/,
-                use:[
-                    "replaceLoader",
-                    {
-                        loader: "replaceLoaderAsync",
-                        options: {
-                            name:'haogege'
-                        }
-                    }
-                ]
-            }
+            // {
+            //     test: /\.js$/,
+            //     use:[
+            //         "replaceLoader",
+            //         {
+            //             loader: "replaceLoaderAsync",
+            //             options: {
+            //                 name:'haogege'
+            //             }
+            //         }
+            //     ]
+            // }
         ]
     },
-
+    devServer: {
+      contentBase: "./dist",
+      open: true,
+      port: 8082,
+      hotOnly:true //不会刷新浏览器
+    },
+    devtool: "source-map",
     plugins: [
         new htmlWebpackPlugin({
             template:"src/index.html",
-            filename:"laofeng.html", //可以定制生成的目录
+            filename:"index.html", //可以定制生成的目录
         }),
         new CleanWebpackPlugin(), //打包文件清理多余的垃圾文件
         new miniCssExtractPlugin({
             filename: "index.css",
         }),
+        new webpack.HotModuleReplacementPlugin(),
     ]
 };
