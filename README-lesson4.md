@@ -25,4 +25,7 @@
 ## babel 7以上，可以通过babelrc文件来配置babel的相关配置
 
 ## 插件系统作用在整个webpack的构建流程中 生命周期　生命周期钩子
-> 
+
+
+### babel7版本以上引入polyfill时,后使用core.js的自动扫描转码会报错　原因在于babel7以后,core做了升级
+　　不支持polyfill,如果使用会报错
