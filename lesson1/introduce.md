@@ -18,7 +18,7 @@ const ws2 = fs.createWriteStream('./02.jpg
 
 ### cli工具
 > bin/kkb: 声明解析方式，cli的入口文件
-> npm link:通过在package.json中的bin中声明入口方式，从而暴露全局，可以直接调用
+> npm link(在对应的npm文件中进行关联):通过在package.json中的bin中声明入口方式，从而暴露全局，可以直接调用
 > 命令行界面
 > 实现init函数,完成脚手架的拷贝，依赖的安装，浏览器自启动功能
 

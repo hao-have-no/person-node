@@ -39,17 +39,17 @@ const spawn = async (...args)=>{
 module.exports = async name => {
     //打印欢迎界面
     clear();
-    const data = await figlet('K K B  W e l c o m e');
+    const data = await figlet('T T S F H  W e l c o m e');
     log(data);
 
     // //克隆脚手架
-    // log('🚀创建项目:'+name);
-    // await clone('github:su37josephxia/vue-template',name);
+    log('🚀创建项目:'+name);
+    await clone('github:su37josephxia/vue-template',name);
 
     //安装依赖
     log('安装依赖');
     //cwd:指定install的执行环境
-    // await spawn('npm',['install'],{cwd:`./${name}`});
+    await spawn('npm',['install'],{cwd:`./${name}`});
 
     log(chalk.green(`
 👌安装完成：
