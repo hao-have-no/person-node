@@ -46,3 +46,107 @@
 
 ### plugin　webpack构建的扩展插件
 
+
+
+### 20210511
+
+### 多入口文件
+ entry: {
+      main:path.resolve(__dirname,'../src/main.js'),
+      header:path.resolve(__dirname,'../src/header.js')
+  }, 
+    output: {
+      filename: '[name].[hash:8].js',      // 打包后的文件名称
+      path: path.resolve(__dirname,'../dist')  // 打包后的目录
+    },
+    plugins:[
+      new HtmlWebpackPlugin({
+        template:path.resolve(__dirname,'../public/index.html'),
+        filename:'index.html',
+        chunks:['main'] // 与入口文件对应的模块名
+      }),
+      new HtmlWebpackPlugin({
+        template:path.resolve(__dirname,'../public/header.html'),
+        filename:'header.html',
+        chunks:['header'] // 与入口文件对应的模块名
+      }),
+    ]
+
+
+### 优化webpack配置
+> 优化打包速度
++  合理的配置mode参数与devtool参数，从而区分什么时候要进行特殊处理,
+eg:　mode = production开始 tree shaking(去除无用代码)和uglifyjs(代码压缩混淆)
++  缩小文件的搜索范围
+eg： webpack.config.js中配置alias:
+alias:{
+    'vue$':'vue/dist/vue.runtime.esm.js',
+    '@':path.resolve(__dirname,'src/assets/icons'),
+    'assets':resolve('src/assets'),
+    'components':resolve('src/components')
+}
+eg: 
+include exclude 同样配置include exclude也可以减少webpack loader的搜索转换时间。
+增加noParse属性,告诉webpack不必解析，以此增加打包速度。
+
+module:{
+        noParse:'jquery',
+       rules:[{
+        test:'/\.vue$/',
+        loader:'vue-loader',
+        includes:[path.resolve(__dirname,'src')],
+        exclude:/node_modules/
+    }]
+    }
++ HappyPack开启多进程Loader转换
+why?在webpack构建过程中，实际上耗费时间大多数用在loader解析转换以及代码的压缩中。
+基本原理是将这部分任务分解到多个子进程中去并行处理，子进程处理完成后把结果发送到主进程中，从而减少总的构建时间
+
++ 使用webpack-parallel-uglify-plugin 增强代码压缩
+
++ 配置缓存
+why? 构建都会把所有的文件都重复编译一遍,重复工作是否可以被缓存下来,增加执行效率
+目前大部分 loader 都提供了cache 配置项。
+eg: 比如在 babel-loader 中，可以通过设置cacheDirectory 来开启缓存，
+babel-loader?cacheDirectory=true 就会将每次的编译结果写进硬盘文件
+（默认是在项目根目录下的node_modules/.cache/babel-loader目录内)
+
+> 优化打包文件体积
++ webpack-bundle-analyzer分析打包后的文件
+eg:
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+plugins:[
+    new BundleAnalyzerPlugin({
+        analyzerHost:'127.0.0.1',
+        analyzerPort:'8089'
+    })
+]
+
+package.json里配置启动命令
+"analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build" 
+
+npm run analyz浏览器会自动打开文件依赖图的网页
+
++ externals: 引用一个库，但是又不想让webpack打包,不影响我们cmd,amd的使用
+将这些不需要打包的静态资源从构建逻辑中剔除出去，而使用 CDN 的方式，去引用它们
+<script
+  src="https://code.jquery.com/jquery-3.1.0.js"
+  integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="
+  crossorigin="anonymous">
+</script>
+
+module.exports = {
+  //...
+  externals: {
+    jquery: 'jQuery'
+  }
+};
+
+import $ from 'jquery';
+
++ Tree-shaking : 用来清除代码中无用的部分
+webpack4 我们设置mode为production的时候已经自动开启了tree-shaking。
+但是要想使其生效，生成的代码必须是ES6模块
+在使用babel时, 因为Babel的预案（preset）默认会将任何模块类型都转译成CommonJS类型
+导致tree-shaking失效。修正这个问题也很简单，
+在.babelrc文件或在webpack.config.js文件中设置modules： false就好了
