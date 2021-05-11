@@ -24,3 +24,9 @@
 
 #### 定时任务
 + crontab  用crontab来启动定时  一种linux的编译语言
+
+### egg.js补充
+> egg-router-group 路由分组管理
+> egg-mongoose mongoDb数据库驱动
+> egg-validate 数据校验
+> md5 二次加密　　jsonwebtoken 加密解密

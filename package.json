@@ -50,6 +50,7 @@
     "superagent": "^5.1.0",
     "trek-captcha": "^0.4.0",
     "util": "^0.12.3",
+    "vue-auto-route-fh-cli": "^1.0.1",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {},
