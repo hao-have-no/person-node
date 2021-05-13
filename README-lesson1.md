@@ -26,7 +26,7 @@
 ### mode　　构建模式　常见dev:不压缩代码，便于调试　　　prd生产模式:压缩文件
 
 
-### chunk　代码片段，由入口文件和依赖文件生成
+### chunk　代码片段， 
 　　　＞　值得是webpack处理后的每个文件的代码块
 　　　＞ｅｇ：ｍａｉｎ.js的75行
     > webpack打包时输出的chunks:main  值得就是chunk的合集
@@ -37,7 +37,7 @@
 ### module　模块，基于ｎｏｄｅ，一切都是模块，模块化开发
 
 ### bundle　打包后输出到资源目录的文件，构建成功后的资源文件
-    > 就是main.js  由chunk＋webpackBootstrap构成
+    > 就是main.js  由chunk＋webpackBootstrap(补全chunk中的函数)构成
 
 
 

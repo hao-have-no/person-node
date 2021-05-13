@@ -1,7 +1,7 @@
 // import {str} from './a.js'
 // import css from './index.css';
 //
-// import less from '../index.less';
+import less from './index.less';
 // var btn = document.createElement("button");
 // btn.innerHTML = "新增";
 // document.body.appendChild(btn);
