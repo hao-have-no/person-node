@@ -35,9 +35,9 @@ module.exports = {
         filename: "[name].js",
     },
     mode: "development",
-    resolveLoader: {
-        modules: ["./node_modules", "./myLoaders"],
-    },
+    // resolveLoader: {
+    //     modules: ["./node_modules", "./myLoaders"],
+    // },
     module: {
         rules: [
             {
@@ -71,38 +71,38 @@ module.exports = {
 
 
             // babel-loader 对js的兼容
-            // {
-            //   test: /\.js$/,
-            //   use: "babel-loader"
+            {
+              test: /\.js$/,
+              use: "babel-loader"
             //
             //
             //   // babel 的配置使用　　另外一种是babelrc文件
-            //   //     {
-            //   //     loader:"babel-loader",
-            //   //     options:{
-            //   //         presets:[
-            //   //             ['@babel/preset-env',
-            //   //                 {
-            //   //                     targets:{
-            //   //                     edge:'16',
-            //   //                     firefox:'60',
-            //   //                     chrome:'67'
-            //   //                 },
-            //   //                 corejs:2, //babel新版本特性，需要和useBuiltIns 搭配使用 目前兼容到corejs3
-            //   //                 useBuiltIns:"entry",
-            //   //                 //按需加载　需要在webpack的入口文件(./src/index.js)中动态引入
-            //   //
-            //   //                 // useBuiltIns:"usage",
-            //   //                 // usage 全自动检测，动态引入，不需要声明
-            //   //             },
-            //   //             ],
-            //   //             "@babel/preset-react" //react解析
-            //   //         ],
-            //   //         //借助插件来进行语法转换
-            //   //         //通过[[],{}] 可以对preset-env 进行插件设置
-            //   //     }
-            //   // },  //babel 加@表示属于同一包下
-            // },
+            //       {
+            //       loader:"babel-loader",
+            //       options:{
+            //           presets:[
+            //               ['@babel/preset-env',
+            //                   {
+            //                       targets:{
+            //                       edge:'16',
+            //                       firefox:'60',
+            //                       chrome:'67'
+            //                   },
+            //                   corejs:2, //babel新版本特性，需要和useBuiltIns 搭配使用 目前兼容到corejs3
+            //                   useBuiltIns:"entry",
+            //                   //按需加载　需要在webpack的入口文件(./src/index.js)中动态引入
+            //
+            //                   // useBuiltIns:"usage",
+            //                   // usage 全自动检测，动态引入，不需要声明
+            //               },
+            //               ],
+            //               "@babel/preset-react" //react解析
+            //           ],
+            //           //借助插件来进行语法转换
+            //           //通过[[],{}] 可以对preset-env 进行插件设置
+            //       }
+            //   },  //babel 加@表示属于同一包下
+            },
         ],
     },
 

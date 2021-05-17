@@ -1,1 +1,1 @@
-文件一共2,文件列表为:index.js,index.html
+文件一共2个,文件列表为:index.js,index.html

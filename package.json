@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --config ./webpack.laofeng.config.js",
+    "start": "webpack --config ./webpack.config.js",
     "dev:server": "webpack-dev-server --config ./webpack.laofeng.config.js",
     "mpa": "rm -rf ./dist &&webpack --config ./mpa.config.js"
   },
@@ -55,7 +56,6 @@
     "last 2 version",
     ">1%",
     "not ie < 11",
-    "cover 99.5%",
-    "dead 两年不维护"
+    "cover 99.5%"
   ]
 }
