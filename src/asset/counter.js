@@ -1,6 +1,6 @@
-// 需要使⽤module.hot.accept来观察模块更新 从⽽更新
+// 需要使⽤module.hot.accet来观察模块更新 从⽽更新
 function counter() {
-    var div = document.createElement("div");
+    var div = document.creatpeElement("div");
     div.setAttribute("id", "counter");
     div.innerHTML = 1;
     div.onclick = function() {

@@ -3,7 +3,7 @@
 //
 
 //
-// console.log('index ')
+console.log('index ')
 //
 // const arr = [new Promise(()=>{}),new Promise(()=>{})];
 //
@@ -13,14 +13,14 @@
 
 
 //index.js  babel 处理react
-import React, { Component } from "react";
-import ReactDom from "react-dom";
-class App extends Component {
-    render() {
-        return <div>hello world</div>;
-    }
-}
-ReactDom.render(<App />, document.getElementById("app"));
+// import React, { Component } from "react";
+// import ReactDom from "react-dom";
+// class App extends Component {
+//     render() {
+//         return <div>hello world</div>;
+//     }
+// }
+// ReactDom.render(<App />, document.getElementById("app"));
 
 
 // 查询ｗｅｂｐａｃｋ构建流程

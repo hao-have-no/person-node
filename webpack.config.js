@@ -28,16 +28,16 @@ const textWebpackPlugin = require("./myPlugins/text-webpack-plugins");
 
 module.exports = {
     entry: {
-        index: "./src/index.js",
+        index: "./src/asset/index1.js",
     },
     output: {
         path: path.resolve(__dirname, "./dist"),
         filename: "[name].js",
     },
     mode: "development",
-    // resolveLoader: {
-    //     modules: ["./node_modules", "./myLoaders"],
-    // },
+    resolveLoader: {
+        modules: ["./node_modules", "./myLoaders"],
+    },
     module: {
         rules: [
             {
@@ -73,7 +73,14 @@ module.exports = {
             // babel-loader 对js的兼容
             {
               test: /\.js$/,
-              use: "babel-loader"
+              use: [
+                  "babel-loader",
+                  "replaceLoader", {
+                              loader: "replaceLoaderAsync",
+                              options: {
+                                  name:'haogege'
+                              }
+                  }]
             //
             //
             //   // babel 的配置使用　　另外一种是babelrc文件
