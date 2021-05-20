@@ -1,0 +1,9 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# dependencies
+./perfermance/node_modules/
+
+package-lock.json
+
+.idea
