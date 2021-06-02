@@ -54,7 +54,7 @@
         )
         axios.interceptors.response.use(
             response => {
-                document.getElementById('log').append(JSON.stringify(response.data))
+                document.getElementById('log').append(JSON.stringify(response.data));
                 return response;
             }
         );

@@ -43,6 +43,8 @@ module.exports = appInfo => {
         }
     }
 
+    //jwt配置,对当前api的请求的token进行解密
+    //把token自动解密到state中,将token的user信息放到user.data上
     config.jwt= {
         secret: 'Great4-M',
         enable: true, // default is false

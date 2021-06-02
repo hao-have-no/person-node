@@ -24,11 +24,14 @@ class UserAccessService extends Service {
     }
 
     async logout() {
+        console.log('logout');
     }
 
+    //对user信息进行加密
     async current() {
         const {ctx, service} = this;
         // ctx.state.user 可以提取到JWT编码的data
+        // state怎么来的,配置文件中增加了jwt的中间件
         const _id=ctx.state.user.data._id;
         const user=await service.user.find(_id);
         if (!user) {

@@ -32,13 +32,13 @@ class UserController extends Controller {
         // }
 
         // 校验参数 弥补swaggerdoc中enableSecurity属性无法使用,无法进行接口的检查
+        //能够拿到检验规则
         ctx.validate(ctx.rule.createUserRequest);
 
         // 组装参数
         const payload=ctx.request.body|| {}
         // 调⽤用 Service 进⾏业务处理
         const res=await service.user.create(payload)
-
         //helper 通过extenbds/声明扩展文件来使用
         ctx.helper.success({ctx,res});
     }
