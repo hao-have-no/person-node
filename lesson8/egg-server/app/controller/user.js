@@ -22,7 +22,6 @@ class UserController extends Controller {
         // const res={
         //     abc:123
         // };
-
         //统一应答接口
         // ctx.body = {
         //     code: 1
@@ -34,9 +33,13 @@ class UserController extends Controller {
         // 校验参数 弥补swaggerdoc中enableSecurity属性无法使用,无法进行接口的检查
         //能够拿到检验规则
         ctx.validate(ctx.rule.createUserRequest);
-
         // 组装参数
         const payload=ctx.request.body|| {}
+        const {password,passwords} = ctx.request.body;
+        if (password !== passwords){
+            ctx.helper.success({ctx,res:'密码不一致'});
+            return;
+        }
         // 调⽤用 Service 进⾏业务处理
         const res=await service.user.create(payload)
         //helper 通过extenbds/声明扩展文件来使用
@@ -46,14 +49,14 @@ class UserController extends Controller {
     /**
      * @summary 删除单个用户
      * @description 删除单个用户
-     * @router delete /api/user/{id}
+     * @router delete /api/user
      * @request path string *id eg:1 用户ID
-     * @response 200 baseResponse 创建成功
+     * @response 200 baseResponse 删除成功
      */
     async destroy() {
         const { ctx, service } = this
         // 校验参数
-        const { id } = ctx.params
+        const { id } = ctx.query;
         // 调用 Service 进行业务处理
         await service.user.destroy(id)
         // 设置响应内容和响应状态码
@@ -62,27 +65,30 @@ class UserController extends Controller {
 
     /**
      * @summary 修改用户
-     * @description 获取用户信息
-     * @router put /api/user/
+     * @description 修改用户
+     * @router put /api/updateUser
+     * @request body createUserRequest *body
+     * @request url baseRequest
      * @response 200 baseResponse 创建成功
-     * @ignore
      */
     async update() {
         const { ctx, service } = this
         // 校验参数
         ctx.validate(ctx.rule.createUserRequest)
         // 组装参数
-        const { id } = ctx.params
+        const { _id } = ctx.request.body;
         const payload = ctx.request.body || {}
         // 调用 Service 进行业务处理
-        await service.user.update(id, payload)
+        ctx.helper.logger('log--->',_id,payload);
+        // console.log('log--->',_id,payload);
+        await service.user.update(_id, payload)
         // 设置响应内容和响应状态码
         ctx.helper.success({ctx})
     }
 
     /**
      * @summary 获取单个用户
-     * @description 获取用户信息
+     * @description 获取单个用户
      * @router get /api/user/{id}
      * @request url baseRequest
      * @response 200 baseResponse 创建成功
@@ -112,6 +118,7 @@ class UserController extends Controller {
         const { ctx, service } = this
         // 组装参数
         const payload = ctx.query
+        ctx.helper.logger('create--->',payload);
         // 调用 Service 进行业务处理
         const res = await service.user.index(payload)
         // 设置响应内容和响应状态码

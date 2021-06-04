@@ -44,6 +44,18 @@ class UserAccessController extends Controller {
         // 设置响应内容和响应状态码
         ctx.helper.success({ ctx })
     }
+
+    /**
+     * @summary 用户状态查询
+     * @description 用户状态查询
+     * @router post /api/user/status/{id}
+     * @request body loginRequest *body
+     * @response 200 baseResponse 创建成功
+     */
+    async userStatus(){
+        const { ctx, service } = this
+        console.log('userStatus')
+    }
 }
 
 module.exports = UserAccessController

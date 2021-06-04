@@ -14,8 +14,9 @@ class UserService extends Service
      * @param {*} _id
      */
     async destroy(_id) {
-        const { ctx, service } = this
+        const { ctx, service } = this;
         const user = await ctx.service.user.find(_id)
+        ctx.helper.logger('user',user,_id);
         if (!user) {
             ctx.throw(404, 'user not found')
         }
