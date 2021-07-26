@@ -43,7 +43,7 @@ class UserController extends Controller {
         // 调⽤用 Service 进⾏业务处理
         const res=await service.user.create(payload)
         //helper 通过extenbds/声明扩展文件来使用
-        ctx.helper.success({ctx,res});
+        ctx.helper.success({ctx,res} );
     }
 
     /**
