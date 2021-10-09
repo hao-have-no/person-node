@@ -19,6 +19,7 @@
     "egg-validate": "^2.0.2",
     "fs": "0.0.1-security",
     "image-downloader": "^4.0.1",
+    "moment": "^2.29.1",
     "mysql2": "^2.2.5",
     "path": "^0.12.7",
     "stream-wormhole": "^1.1.0"

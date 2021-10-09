@@ -17,6 +17,10 @@ class AppBootHook {
         // Config, plugin files have been loaded.
     }
 
+    async beforeStart(){
+        console.log('------------------start');
+    }
+
     async didLoad() {
         // All files have loaded, start plugin here.
     }
@@ -40,7 +44,8 @@ class AppBootHook {
     }
 
     async serverDidReady() {
-
+        console.log('-------------schedule-start');
+        await this.app.runSchedule('update_cache');
     }
 
     async beforeClose() {

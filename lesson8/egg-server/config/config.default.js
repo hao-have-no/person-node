@@ -72,6 +72,37 @@ module.exports = appInfo => {
         allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
     };
 
+    //微信公众号相关配置
+    config.weChat={
+        appId: 'wxf0921f0bcbb62e0d',
+        secret: '143c3b8757f74bb7b6608459a11f15ac',
+        daily: 'jTjcXu3tUD8jQeveVbV-2JnpdqZbRZmYwzLGR5wI9e0', // 普通模板
+        marry: 'brmBmRxriGCZr07i_9ewmqYFwTW90iKJws8kD171XW8', // 结婚纪念日模板
+        wageDay: 'aCHjEM6vdCuKNnfW5_LICTKvWCtKoozVfCL62zSP2F0', // 工资日模板
+        birthday: 'AWltKtPSxllJoHajsSolBs4oFeXB8tY2TDahQ47z1YM', // 生日模板
+    };
+
+    config.weather={
+        appid: '43571838',
+        appsecret: 'x6oFSTim',
+    };
+
+    // 时间
+    config.time = {
+        wageDay: 10, // 工资日
+        acquaint: '2017-09-14', // 相爱日期
+        love: '2017-10-01', // 相爱日期
+        BeEngaged: '2020-10-05', //订婚纪念日
+        // 生日配置
+        // 老家过阴历生日，这里暂时写死
+        birthday: {
+            2021: '2021-10-20',
+            2022: '2022-10-10',
+            2023: '2023-10-29',
+        }, // 每年生日 阳历
+        birthYear: 1995,
+    };
+
 //     config.mysql={
 // // 单数据库信息配置
 //         client: {
@@ -92,7 +123,7 @@ module.exports = appInfo => {
 //         agent: false,
 //     };
 
-    // config.sequelize = {
+// config.sequelize = {
     //     dialect: 'mysql',
     //     host: 'localhost',
     //     port: 3306,
