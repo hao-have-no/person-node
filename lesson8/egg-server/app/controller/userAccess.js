@@ -13,16 +13,21 @@ class UserAccessController extends Controller {
     /**
      * @summary 用户登入
      * @description 用户登入
-     * @router post /api/auth/jwt/login
-     * @request body loginRequest *body
+     * @router post /auth/jwt/login
+     * @request query loginRequest *query
      * @response 200 baseResponse 创建成功
      */
     async login() {
         const { ctx, service } = this
+
+        ctx.helper.logger(ctx.request.query,ctx.request.query.mobile);
+
+        // const payload = ...
+
         // 校验参数
-        ctx.validate(ctx.rule.loginRequest);
+        // ctx.validate(ctx.rule.loginRequest);
         // 组装参数
-        const payload = ctx.request.body || {}
+        const payload = ctx.request.query|| {}
 
         // 调用 Service 进行业务处理
         const res = await service.userAccess.login(payload)

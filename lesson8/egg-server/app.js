@@ -45,7 +45,7 @@ class AppBootHook {
 
     async serverDidReady() {
         console.log('-------------schedule-start');
-        await this.app.runSchedule('update_cache');
+        // await this.app.runSchedule('update_cache');
     }
 
     async beforeClose() {

@@ -64,14 +64,14 @@ class WeiXinService extends Service {
         const {ctx,app} = this;
         //根据日期判断今天推送的消息模板
         const wageDay = ctx.service.weixin.getWageDay();
-        const marry = ctx.service.weixin.getMarryDay();
+        const beEngaged = ctx.service.weixin.getBeEngagedDay();
         const birthday = ctx.service.weixin.getBirthday();
         const data = {
             topcolor: '#FF0000',
             data: {},
         };
 
-        ctx.helper.logger('temp',wageDay,marry,birthday)
+        ctx.helper.logger('temp',wageDay,beEngaged,birthday)
         // return;
 
         if (!wageDay){
@@ -82,7 +82,7 @@ class WeiXinService extends Service {
                     color: '#cc33cc',
                 },
             };
-        }else if (!marry) {
+        }else if (!beEngaged) {
             // 结婚纪念日模板
             data.template_id = app.config.weChat.marry;
             data.data = {
@@ -140,8 +140,12 @@ class WeiXinService extends Service {
                     value: birthday,
                     color: '#ff0033',
                 },
-                marry: {
-                    value: marry,
+                beEngaged: {
+                    value: beEngaged,
+                    color: '#ff0033',
+                },
+                marry:{
+                    value: ctx.service.weixin.getMaryData(),
                     color: '#ff0033',
                 },
                 wea: {
@@ -236,9 +240,33 @@ class WeiXinService extends Service {
     /**
      * 获取距离下次订婚日有多久
      */
-    getMarryDay() {
+    getBeEngagedDay() {
         const { app } = this;
         const marry = app.config.time.BeEngaged;
+        // 获取当前时间戳
+        const now = moment(moment().format('YYYY-MM-DD')).valueOf();
+        // 获取纪念日 月-日
+        const mmdd = moment(marry).format('-MM-DD');
+        // 获取当年
+        const y = moment().year();
+        // 获取今年结婚纪念日时间戳
+        const nowTimeNumber = moment(y + mmdd).valueOf();
+        // 判断 今天的结婚纪念日 有没有过，如果已经过去（now>nowTimeNumber），resultMarry日期为明年的结婚纪念日
+        // 如果还没到，则 结束日期为今年的结婚纪念日
+        let resultMarry = nowTimeNumber;
+        if (now > nowTimeNumber) {
+            // 获取明年纪念日
+            resultMarry = moment((y + 1) + mmdd).valueOf();
+        }
+        return moment(moment(resultMarry).format()).diff(moment(now).format(), 'day');
+    }
+
+    /**
+     * 距离结婚还有多少天
+     */
+    getMaryData(){
+        const { app } = this;
+        const marry = app.config.time.mary;
         // 获取当前时间戳
         const now = moment(moment().format('YYYY-MM-DD')).valueOf();
         // 获取纪念日 月-日

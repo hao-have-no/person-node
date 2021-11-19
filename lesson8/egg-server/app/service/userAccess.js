@@ -7,6 +7,7 @@ class UserAccessService extends Service {
     async login(payload) {
         const {ctx, service} = this;
         //验证账户是否存在
+        ctx.helper.logger('findUser',payload.mobile);
         const user = await service.user.findByMobile(payload.mobile)
         if (!user) {
             ctx.throw(404, 'user not found')
@@ -18,6 +19,8 @@ class UserAccessService extends Service {
         if (!verifyPsw) {
             ctx.throw(404, 'user password is error')
         }
+
+        ctx.helper.logger('user_id',user._id);
 
         // 生成Token令牌
         return {token: await service.actionToken.apply(user._id)}

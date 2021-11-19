@@ -76,7 +76,7 @@ module.exports = appInfo => {
     config.weChat={
         appId: 'wxf0921f0bcbb62e0d',
         secret: '143c3b8757f74bb7b6608459a11f15ac',
-        daily: 'jTjcXu3tUD8jQeveVbV-2JnpdqZbRZmYwzLGR5wI9e0', // 普通模板
+        daily: 'fQdPzlN7gPXw-8h3bvqgepf3kXnmhxcsyNgcq15eWsc', // 普通模板
         marry: 'brmBmRxriGCZr07i_9ewmqYFwTW90iKJws8kD171XW8', // 结婚纪念日模板
         wageDay: 'aCHjEM6vdCuKNnfW5_LICTKvWCtKoozVfCL62zSP2F0', // 工资日模板
         birthday: 'AWltKtPSxllJoHajsSolBs4oFeXB8tY2TDahQ47z1YM', // 生日模板
@@ -91,6 +91,7 @@ module.exports = appInfo => {
     config.time = {
         wageDay: 10, // 工资日
         acquaint: '2017-09-14', // 相爱日期
+        mary: '2022-04-29', // 结婚日期
         love: '2017-10-01', // 相爱日期
         BeEngaged: '2020-10-05', //订婚纪念日
         // 生日配置

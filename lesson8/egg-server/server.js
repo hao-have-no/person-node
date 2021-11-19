@@ -1,6 +1,9 @@
 const egg = require('egg');
 
-const workers = Number(process.argv[2]||require('os').cpus().length);
+// const workers = Number(require('os').cpus().length);
+
+const workers = 1;
+console.log('egg----->---',workers);
 
 egg.startCluster({
    workers,
