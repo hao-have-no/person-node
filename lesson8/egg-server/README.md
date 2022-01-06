@@ -1,6 +1,6 @@
 # egg-server
 
-
+ node-v:10
 
 ## QuickStart
 
