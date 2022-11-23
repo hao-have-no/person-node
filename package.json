@@ -46,7 +46,7 @@
     "request": "^2.88.2",
     "require": "^2.4.20",
     "sequelize": "^5.22.3",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.5.0",
     "superagent": "^5.1.0",
     "trek-captcha": "^0.4.0",
     "util": "^0.12.3",
